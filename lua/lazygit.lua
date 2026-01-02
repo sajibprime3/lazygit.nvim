@@ -2,6 +2,7 @@ local open_floating_window = require("lazygit.window").open_floating_window
 local project_root_dir = require("lazygit.utils").project_root_dir
 local get_root = require("lazygit.utils").get_root
 local is_lazygit_available = require("lazygit.utils").is_lazygit_available
+local is_yadm_available = require("lazygit.utils").is_yadm_available
 local is_symlink = require("lazygit.utils").is_symlink
 local open_or_create_config = require("lazygit.utils").open_or_create_config
 
@@ -192,6 +193,25 @@ local function lazygit(path)
   exec_lazygit_command(cmd)
 end
 
+--- :LazyYadm entry point
+local function lazyyadm()
+  if is_yadm_available() ~= true then
+    print("Please install yadm. Check documentation for more information.")
+  end
+  if is_lazygit_available() ~= true then
+    print("Please install lazygit. Check documentation for more information")
+    return
+  end
+
+  prev_win = vim.api.nvim_get_current_win()
+
+  win, buffer = open_floating_window()
+
+  local cmd = { "yadm", "enter", "lazygit" }
+
+  exec_lazygit_command(cmd)
+end
+
 --- :LazyGitCurrentFile entry point
 local function lazygitcurrentfile()
   local current_dir
@@ -253,6 +273,7 @@ end
 
 return {
   lazygit = lazygit,
+  lazyyadm = lazyyadm,
   lazygitlog = lazygitlog,
   lazygitcurrentfile = lazygitcurrentfile,
   lazygitfilter = lazygitfilter,

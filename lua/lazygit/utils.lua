@@ -90,6 +90,11 @@ local function is_lazygit_available()
   return fn.executable('lazygit') == 1
 end
 
+--- Check if yadm is available
+local function is_yadm_available()
+  return fn.executable("yadm") == 1
+end
+
 local function is_symlink()
   local resolved = fn.resolve(fn.expand('%:p'))
   return resolved ~= fn.expand('%:p')
@@ -125,6 +130,7 @@ return {
   project_root_dir = project_root_dir,
   lazygit_visited_git_repos = lazygit_visited_git_repos,
   is_lazygit_available = is_lazygit_available,
+  is_yadm_available = is_yadm_available,
   is_symlink = is_symlink,
   open_or_create_config = open_or_create_config,
 }

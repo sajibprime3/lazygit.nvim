@@ -44,6 +44,8 @@ endif
 
 command! LazyGit lua require'lazygit'.lazygit()
 
+command! LazyYadm lua require'lazygit'.lazyyadm()
+
 command! LazyGitLog lua require'lazygit'.lazygitlog()
 
 command! LazyGitCurrentFile lua require'lazygit'.lazygitcurrentfile()
